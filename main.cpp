@@ -2,7 +2,7 @@
 #include "graph.h"
 int main() {
     Reader reader;
-    Graph graph(false);
-    reader.makeAirports(graph, "Data/airports.dat");
+    std::vector<Airport> airports = reader.getAirportsFromFile("Data/airports.dat");
+    std::vector<Route> routes = reader.getRoutesFromFile("Data/routes.dat");
     return 0;
 }

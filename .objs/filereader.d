@@ -1,14 +1,7 @@
-.objs/filereader.o: filereader.cpp filereader.h graph.h edge.h random.h \
-  random.cpp airport.h
+.objs/filereader.o: filereader.cpp filereader.h airport.h route.h
 
 filereader.h:
 
-graph.h:
-
-edge.h:
-
-random.h:
-
-random.cpp:
-
 airport.h:
+
+route.h:
