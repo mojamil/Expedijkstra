@@ -5,7 +5,6 @@ struct Route {
     int source_id;
     std::string destination_code;
     int destination_id;
-    int num_stops; //don't know if we need this just thought this would be cool
 };
 
 /*

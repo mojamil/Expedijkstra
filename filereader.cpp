@@ -41,12 +41,8 @@ std::vector<Route> Reader::getRoutesFromFile(const std::string& file_name) {
         Route route;
         route.source_code = route_properties[2];
         route.source_id = convertStringToInt(route_properties[3]);
-        //route.source_id = std::stoi(route_properties[3]);
         route.destination_code = route_properties[4];
         route.destination_id = convertStringToInt(route_properties[5]);
-        //route.destination_id = std::stoi(route_properties[5]);
-        route.num_stops = convertStringToInt(route_properties[7]);
-        //route.num_stops = std::stoi(route_properties[7]);
         routes.push_back(route);
     }
     return routes;

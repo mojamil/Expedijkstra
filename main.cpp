@@ -9,7 +9,7 @@ int main() {
     Graph g_(true,true);
     for(auto &i:airports){
         // Store a subset of airports in the graph for testing
-        if(i.country=="\"Greenland\""){
+        if(i.country=="Greenland"){
             if(i.code!="\\N"){
                 g_.insertVertex(i.code.substr(1,3));
             }
