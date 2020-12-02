@@ -1,6 +1,9 @@
 #include "filereader.h"
 #include "graph.h"
+#include "drawer.h"
 #include <iostream>
+
+
 int main() {
     Reader reader;
     std::vector<Airport> airports = reader.getAirportsFromFile("Data/airports.dat");
@@ -22,5 +25,18 @@ int main() {
         }
     }
     g_.print();
+
+
+    Drawer drawer = Drawer("Maps/output.png");
+    std::pair<double, double> coord = {69, 420};
+    drawer.addAirport(coord);
+    std::pair<double, double> JFK = {40.6398,-73.7789};
+    std::pair<double, double> nothercoord = {450.5, 69.1234};
+    drawer.addAirport(nothercoord);
+    //std::pair<double, double> JFK = {40,-73};
+
+    drawer.addAirport(JFK);
+    drawer.drawMap();
+
     return 0;
 }
