@@ -2,6 +2,7 @@
 #include "graph.h"
 #include "graphbuilder.h"
 #include <iostream>
+#include "searches.h"
 
 int main() {
     Reader reader;
@@ -15,7 +16,6 @@ int main() {
     }
     GraphBuilder builder(airports,routes,airports_by_code);
     Graph greenland=builder.country_subgraph("Greenland");
-    Graph multitest=builder.countries_subgraph({"Greenland","Iceland"});
-    greenland.print();
+    //greenland.print();
     return 0;
 }
