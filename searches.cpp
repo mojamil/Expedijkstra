@@ -1,10 +1,11 @@
 #include "searches.h"
-unordered_map<Vertex,double> d;
+unordered_map<Vertex,double> distance;
 //Custom comparator class to use for priority queue
+//We figured out how to write a custom comparator using this tutorial https://neutrofoton.github.io/blog/2016/12/29/c-plus-plus-priority-queue-with-comparator/
 class Comparator{
     public:
         bool operator() (Vertex v1,Vertex v2){
-            return d[v1]>d[v2];
+            return distance[v1]>distance[v2];
         }
 };
 
@@ -17,11 +18,11 @@ void Search::Dijkstra(Graph G, Vertex s){
     std::priority_queue<Vertex, std::vector<Vertex>, Comparator> pq;
     //Set distance of each vertex to infinity and the predecessor to empty string
     for(auto &v:G.getVertices()){
-        d[v]=INT_MAX;
-        p[v]="";
+        distance[v]=INT_MAX;
+        predecessor[v]="";
     }
     //Set the source to 0
-    d[s]=0;
+    distance[s]=0;
     //Push all the vertexes to the priority queue
     for(auto &v:G.getVertices()){
         pq.push(v);
@@ -48,9 +49,9 @@ void Search::Dijkstra(Graph G, Vertex s){
                 int cost=G.getEdgeWeight(u,v);
 
                 // Set the distance between source and vertex to the smallest distance
-                if((cost+d[u])<d[v]){
-                    d[v]=(cost+d[u]);
-                    p[v]=u;
+                if((cost+distance[u])<distance[v]){
+                    distance[v]=(cost+distance[u]);
+                    predecessor[v]=u;
                 }
                 //push the vertex after it's weight is set to the priority queue
                 pq.push(v);
@@ -69,7 +70,7 @@ std::string Search::find_route(Graph G,Vertex start,Vertex end){
     Vertex curr=end;
     out+=end;
     while(curr!=start){
-        curr=p[curr];
+        curr=predecessor[curr];
         out=curr+" -> "+out;
     }
     return out;
