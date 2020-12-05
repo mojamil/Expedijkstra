@@ -21,6 +21,13 @@ Graph GraphBuilder::country_subgraph(std::string country){
             graph.setEdgeWeight(i.source_code,i.destination_code,distance(airports_by_code[i.source_code],airports_by_code[i.destination_code]));
         }
     }
+    for (auto &i : graph.getVertices())
+    {
+        if(graph.getAdjacent(i).size()==0){
+            graph.removeVertex(i);
+        }
+    }
+    
     return graph;
 }
 
@@ -38,6 +45,12 @@ Graph GraphBuilder::countries_subgraph(std::vector<std::string> countries){
         if(graph.vertexExists(i.source_code)&&graph.vertexExists(i.destination_code)){
             graph.insertEdge(i.source_code,i.destination_code);
             graph.setEdgeWeight(i.source_code,i.destination_code,distance(airports_by_code[i.source_code],airports_by_code[i.destination_code]));
+        }
+    }
+    for (auto &i : graph.getVertices())
+    {
+        if(graph.getAdjacent(i).size()==0){
+            graph.removeVertex(i);
         }
     }
     return graph;

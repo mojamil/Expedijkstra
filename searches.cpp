@@ -28,18 +28,22 @@ void Search::Dijkstra(Graph G, Vertex s){
     }
     //Graph to keep track of visited vertexes
     Graph T(true,true);
-
-    for(unsigned long i=0;i<G.getVertices().size();i++){
+    while(pq.size()!=0){
         
         //Get the vertex with minimum distance from the source
         Vertex u=pq.top();
-        pq.pop();
+        while(T.vertexExists(u)&&pq.size()!=0){
+            u=pq.top();
+            pq.pop();
+        }
         T.insertVertex(u);
 
         //Loop through the adjacent vertices
+        
         for (auto &v : G.getAdjacent(u))
         {
             // If the vertex was not visited
+            // std::cout<<v<<std::endl;
             if(!T.vertexExists(v)){
                 int cost=G.getEdgeWeight(u,v);
 
@@ -57,9 +61,13 @@ void Search::Dijkstra(Graph G, Vertex s){
 
 std::string Search::find_route(Graph G,Vertex start,Vertex end){
     //Run Djikstra's algorithm and then print out the stops in order
+    if(!G.vertexExists(end)||!G.vertexExists(start)){
+        return "Airport Code Incorrect";
+    }
+    std::string out="";
     Dijkstra(G, start);
     Vertex curr=end;
-    std::string out=""+end;
+    out+=end;
     while(curr!=start){
         curr=p[curr];
         out=curr+" -> "+out;
