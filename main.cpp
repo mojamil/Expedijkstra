@@ -16,6 +16,8 @@ int main() {
     }
     GraphBuilder builder(airports,routes,airports_by_code);
     Graph greenland=builder.country_subgraph("Greenland");
-    //greenland.print();
+    Graph us=builder.country_subgraph("United States");
+    Search search;
+    std::cout<<search.find_route(us,"CMI","DEN")<<std::endl;
     return 0;
 }
