@@ -24,11 +24,16 @@ const std::string output_file_name;
 int map_width; //1350 in black white map
 int map_height; //675 in black white map
 std::vector<std::pair<double, double>> airport_coords;
+const int PRIME_MERIDIAN = 1350/2 - 1350/28; //only true in 
+const int LEFT_SIDE_LONG = -167; //i can make it more formulaic later
+const int EQUATOR = 337;
 
 //Colors: see note on bottom 
 cs225::HSLAPixel LIGHT_BLUE = {216, 1, .8 , 1};
 //reverse multipier, larger means that point is smaller
 const int AIRPORT_SIZE_MULTIPLIER = 200;
+std::pair<int, int> convertCoordsToPixel(double latitude, double longitude);
+
 
 
 };

@@ -29,12 +29,16 @@ int main() {
 
     Drawer drawer = Drawer("Maps/output.png");
     std::pair<double, double> coord = {69, 420};
-    drawer.addAirport(coord);
+    //drawer.addAirport(coord);
     std::pair<double, double> JFK = {40.6398,-73.7789};
     std::pair<double, double> nothercoord = {450.5, 69.1234};
-    drawer.addAirport(nothercoord);
-    //std::pair<double, double> JFK = {40,-73};
-
+    /*
+    airport_coords.push_back(); //south chile
+    airport_coords.push_back(); //top alaska
+    airport_coords.push_back(); */
+    drawer.addAirport({-55.340392,-68.243426});
+    drawer.addAirport({35.998230,-5.601901});
+    drawer.addAirport({71.061224,-156.349617});
     drawer.addAirport(JFK);
     drawer.drawMap();
 
