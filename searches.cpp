@@ -4,6 +4,13 @@ unordered_map<Vertex,double> distance;
 //We figured out how to write a custom comparator using this tutorial https://neutrofoton.github.io/blog/2016/12/29/c-plus-plus-priority-queue-with-comparator/
 class Comparator{
     public:
+        /**
+        * A class that is passed as an argument to the priority queue intialization
+        * Compares the value of two vertices using the distance map.
+        * @param v1 - One of the vertices to compare
+        * @param v2 - The other vertex to compare
+        * @return If vertex v1 has a greater distance from source
+        */
         bool operator() (Vertex v1,Vertex v2){
             return distance[v1]>distance[v2];
         }
@@ -67,9 +74,13 @@ std::string Search::find_route(Graph G,Vertex start,Vertex end){
     }
     std::string out="";
     Dijkstra(G, start);
+
     Vertex curr=end;
     out+=end;
     while(curr!=start){
+        if(predecessor[curr]==""){
+            return "No route between two airports";
+        }
         curr=predecessor[curr];
         out=curr+" -> "+out;
     }
