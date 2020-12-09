@@ -72,9 +72,9 @@ void Search::BFS(Graph * G, Vertex source, Vertex destination){
             } 
         }
     }
-    for (Vertex vertex : visited_vertices) {
-        std::cout<<vertex<<std::endl;
-    }
+    // for (Vertex vertex : visited_vertices) {
+    //     std::cout<<vertex<<std::endl;
+    // }
 }
 
 void Search::Dijkstra(Graph G, Vertex s){
