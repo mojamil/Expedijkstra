@@ -45,14 +45,20 @@ void Search::BFS(Graph * G, Vertex source, Vertex destination){
         nodeStateList[source] = "VISITED";
         myQueue.pop(source);
         while (!myQueue.empty()) {
-            for (Vertex vertex : G -> getAdjacent(source)) {
-                if (nodeStateList[vertex] == "UNEXPLORED") {
-                    nodeStateList[vertex] == "VISITED";
-                    edgeStateList[G -> getEdge(source, vertex)] == "PATH EDGE";
-                } else if (edgeStateList[G -> getEdge(source, vertex)] == "UNEXPLORED") {
-                    edgeStateList[G -> getEdge(source, vertex)] == "CROSS EDGE";
+            for (Vertex vert : G -> getAdjacent(source)) {
+                for (Vertex vertex : G -> getAdjacent(source)) {
+                    if (nodeStateList[vertex] == "UNEXPLORED") {
+                        nodeStateList[vertex] == "VISITED";
+                        edgeStateList[G -> getEdge(source, vertex)] == "PATH EDGE";
+                    } else if (edgeStateList[G -> getEdge(source, vertex)] == "UNEXPLORED") {
+                        edgeStateList[G -> getEdge(source, vertex)] == "CROSS EDGE";
+                    }
                 }
+                source = vert;
             }
+
+            
+            
         }
     }
 }
