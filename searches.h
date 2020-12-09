@@ -26,16 +26,10 @@ class Search{
         * @param G - The graph to run the algorithm on
         * @param start - The starting vertex
         * @param end - The destination vertex
+        * @return a path in string format
         */
         std::string find_route(Graph G,Vertex start,Vertex end);
     private:
-        /**
-        * A class that is passed as an argument to the priority queue intialization
-        * Compares the value of two vertices using the distance map.
-        * @param v1 - One of the vertices to compare
-        * @param v2 - The other vertex to compare
-        */
-        bool compare(Vertex v1,Vertex v2);
 
         unordered_map<Vertex,Vertex> predecessor;
 };

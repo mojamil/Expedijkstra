@@ -1,9 +1,13 @@
 #include "graphbuilder.h"
       
-GraphBuilder::GraphBuilder(std::vector<Airport> airports,std::vector<Route> routes, std::map<std::string,Airport> airbc): airports_by_code(airbc), routes_(routes){
+GraphBuilder::GraphBuilder(std::vector<Airport> airports,std::vector<Route> routes, std::map<std::string,Airport> airbc): airports_by_code(airbc), routes_(routes), all_airports(true,true){
+
     for(auto &i:airports){
         // Map of airports by country so its faster to create graphs
         airports_by_country[i.country].push_back(i);
+        if(i.code!="\\N"){
+            all_airports.insertVertex(i.code);
+        }
     }
 }
 
@@ -21,13 +25,6 @@ Graph GraphBuilder::country_subgraph(std::string country){
             graph.setEdgeWeight(i.source_code,i.destination_code,distance(airports_by_code[i.source_code],airports_by_code[i.destination_code]));
         }
     }
-    for (auto &i : graph.getVertices())
-    {
-        if(graph.getAdjacent(i).size()==0){
-            graph.removeVertex(i);
-        }
-    }
-    
     return graph;
 }
 
@@ -47,14 +44,18 @@ Graph GraphBuilder::countries_subgraph(std::vector<std::string> countries){
             graph.setEdgeWeight(i.source_code,i.destination_code,distance(airports_by_code[i.source_code],airports_by_code[i.destination_code]));
         }
     }
-    for (auto &i : graph.getVertices())
-    {
-        if(graph.getAdjacent(i).size()==0){
-            graph.removeVertex(i);
-        }
-    }
     return graph;
 }
+
+Graph GraphBuilder::get_full_graph(){
+    for(auto &i:routes_){
+        // Store only the routes related to the airports in the graph
+        all_airports.insertEdge(i.source_code,i.destination_code);
+        all_airports.setEdgeWeight(i.source_code,i.destination_code,distance(airports_by_code[i.source_code],airports_by_code[i.destination_code]));
+    }
+    return all_airports;
+}
+
 double GraphBuilder::distance(Airport source,Airport dest){
     // Using Haversine Formula
     std::vector<double> latlon;
