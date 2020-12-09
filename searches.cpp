@@ -18,36 +18,40 @@ class Comparator{
 
 void Search::BFS(Graph * G, Vertex source, Vertex destination){
 
+    // creating two unordered maps which store the state of the node and edge
     unordered_map<Vertex, string> nodeStateList;
     unordered_map<Edge, string> edgeStateList; 
 
+    //depth variable helps keep track of path length
+    int depth = 0;
+    
+    // for loops for initialising states of nodes and edges
     for (Vertex vertex : G -> getVertices()) {
         nodeStateList.insert({vertex, "UNEXPLORED"});
     }
 
     for (Edge edge : G -> getEdges()) {
-        edgeStateList.insert({edge, "UNEXPLORED"});
+        edgeStateList.insert({edge, "UNUSED"});
+    }
+
+    queue <Vertex> myQueue;
+    for (Vertex vertex : G -> getVertices()) {
+        myQueue.push(vertex);
     }
 
     if (!G->vertexExists(source) && !G->vertexExists(destination)) {
         //return "Invalid Input";
     } else {
-        queue<Vertex> myQueue;
         nodeStateList[source] = "VISITED";
-        
-
-    }
-
-    myQueue.enqueue(myVertex);
-    while (!myQueue.empty()) {
-        myVertex = myQueue.dequeue()
-        for (Vertex each : G->adjacent(myVertex)) {
-            if (getLabel(each) == UNEXPLORED) {
-                setLabel(myVertex, each, DISCOVERY)
-                setLabel(each, VISITED)
-                myQueue.enqueue(each)
-            } else if (getLabel(v, w) == UNEXPLORED) {
-                setLabel(v, w, CROSS)
+        myQueue.pop(source);
+        while (!myQueue.empty()) {
+            for (Vertex vertex : G -> getAdjacent(source)) {
+                if (nodeStateList[vertex] == "UNEXPLORED") {
+                    nodeStateList[vertex] == "VISITED";
+                    edgeStateList[G -> getEdge(source, vertex)] == "PATH EDGE";
+                } else if (edgeStateList[G -> getEdge(source, vertex)] == "UNEXPLORED") {
+                    edgeStateList[G -> getEdge(source, vertex)] == "CROSS EDGE";
+                }
             }
         }
     }

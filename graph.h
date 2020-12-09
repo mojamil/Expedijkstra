@@ -127,7 +127,7 @@ public:
     bool vertexExists (Vertex v) const;
 
     /**
-     * Checks if edge exists between two vertices exists.
+     * Checks if edge exists between two verticesG exists.
      * @return - if Edge exists, true
      *         - if Edge doesn't exist, return false
      */
