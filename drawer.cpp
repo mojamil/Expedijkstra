@@ -24,6 +24,15 @@ void Drawer::addAirports(std::vector<const std::pair<double, double>>& coords) {
     }
 }
 
+void Drawer::addAirports(Graph& g, GraphBuilder& builder, std::vector<Vertex> route) {
+    for (Vertex vertex : route) {
+        Airport airport = builder.get_airport_from_code(vertex);
+        const std::pair<double, double>& coord = {airport.latitude, airport.longitude};
+        addAirport(coord);
+    }
+}
+
+
 std::pair<int, int> Drawer::convertCoordsToPixel(double latitude, double longitude) {
     //remeber goes in lat long, but comes out x, y which is opposite
     //there are 360 longitudinal lines
@@ -41,19 +50,26 @@ std::pair<int, int> Drawer::convertCoordsToPixel(double latitude, double longitu
 
 
 
-void Drawer::drawMap() {
+void Drawer::drawMap(cs225::HSLAPixel route_color = {216, 1, .7, 1}) {
 
    // for (std::pair<double, double> airport_coord : this->airport_coords) {
     
  
     //airport_coords.push_back({-1.2120699882507324,-78.57460021972656,8502}
-    for (std::pair<double, double>& airport_coord : this->airport_coords) {
-        std::pair<int, int> pixel_coords = convertCoordsToPixel(airport_coord.first, airport_coord.second);
-        std::cout << pixel_coords.first << "," << pixel_coords.second << std::endl;
+    cs225::HSLAPixel Color;
+    for (unsigned long f = 0; f < airport_coords.size(); ++f) {
+        std::pair<int, int> pixel_coords = convertCoordsToPixel(airport_coords[f].first, airport_coords[f].second);
+        //std::cout << pixel_coords.first << "," << pixel_coords.second << std::endl;
+        if (f == 0) {
+            Color = {0, 1, .25};
+        } else if (f == airport_coords.size() - 1) {
+            Color = GREEN;
+        } else {
+            Color = LIGHT_BLUE;
+        }
         for (int x = std::max(0, pixel_coords.first - (this->map_width/AIRPORT_SIZE_MULTIPLIER)); x < std::min(this->map_width, pixel_coords.first + (this->map_width/AIRPORT_SIZE_MULTIPLIER)); ++x)  {
-    
             for (int y = std::max(0, pixel_coords.second - (this->map_width/AIRPORT_SIZE_MULTIPLIER)); y < std::min(this->map_height, pixel_coords.second + this->map_width/AIRPORT_SIZE_MULTIPLIER);++y) {
-                png->getPixel(x, y) = LIGHT_BLUE;
+                png->getPixel(x, y) = Color;
             }
         }
     }
@@ -74,9 +90,9 @@ void Drawer::drawMap() {
 
         for (int x = first_pixel.first; x < second_pixel.first; ++x) {
             int y = first_pixel.second + dy * (x - first_pixel.first) / dx;
-            png->getPixel(x - 1, y) = LIGHT_BLUE;
-            png->getPixel(x, y) = LIGHT_BLUE;
-            png->getPixel(x + 1, y) = LIGHT_BLUE;
+            png->getPixel(x - 1, y) = route_color;
+            png->getPixel(x, y) = route_color;
+            png->getPixel(x + 1, y) = route_color;
         }
     }
 

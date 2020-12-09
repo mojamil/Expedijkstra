@@ -1,8 +1,9 @@
 
 #include <iostream>
-#include "cs225/PNG.h"
 #include <vector>
+#include "cs225/PNG.h"
 #include "cs225/HSLAPixel.h"
+#include "graphbuilder.h"
 
 class Drawer {
 public:
@@ -11,9 +12,11 @@ public:
 Drawer(const string output_file_name);
 Drawer(const string& output_file_name, std::pair<double, double> longlats);
 ~Drawer();
-void drawMap();
+void drawMap(cs225::HSLAPixel route_color);
 void addAirport(const std::pair<double, double>& coords);
 void addAirports(std::vector<const std::pair<double, double>>& coords);
+void addAirports(Graph& g, GraphBuilder& builder, std::vector<Vertex> route);
+
 
 private:
 //hard coded cuz I don't believe method would be adaptible to 
@@ -30,6 +33,8 @@ const int EQUATOR = 337;
 
 //Colors: see note on bottom 
 cs225::HSLAPixel LIGHT_BLUE = {216, 1, .8 , 1};
+cs225::HSLAPixel RED = {0,1,.5};
+cs225::HSLAPixel GREEN = {120,1., .25};
 //reverse multipier, larger means that point is smaller
 const int AIRPORT_SIZE_MULTIPLIER = 200;
 std::pair<int, int> convertCoordsToPixel(double latitude, double longitude);
@@ -38,7 +43,7 @@ std::pair<int, int> convertCoordsToPixel(double latitude, double longitude);
 
 };
 //https://stackoverflow.com/questions/14329691/convert-latitude-longitude-point-to-a-pixels-x-y-on-mercator-projection
-
+// https://www.december.com/html/spec/colorhsla.html
 /*
 Hue (denoted as h) defines the color itself, for example, red in distinction to blue or yellow. The values for the hue axis run from 0–360° beginning and ending with red and running through green, blue and all intermediary colors like greenish-blue, orange, purple, etc.
 

@@ -1,30 +1,139 @@
+#include <iostream>
+#include <map>
 #include "filereader.h"
 #include "graph.h"
 #include "drawer.h"
-#include <iostream>
+#include "graphbuilder.h"
+#include "searches.h"
 
+/**
+ * input options:
+ * no flags = graph bfs, djikstras, and vizualize
+ * -d = djikstras 
+ * -b = bfs 
+ * -v = vizualize 
+ * note they have to be seperated i.e -d -v -b and not -bdv
+*/
 
-int main() {
+void vizualize(Graph& g, GraphBuilder& builder, std::vector<Vertex> route) {
+        Drawer drawer = Drawer("Maps/output.png");
+
+        drawer.addAirports(g, builder, route);
+        auto dA = route.size();
+        for (auto dB : route) {
+            std::cout << dB << std::endl;
+        }
+        drawer.drawMap({300, 1, .25});
+}
+
+void performBFS(Graph& g, Vertex begin, Vertex end, bool toVizualize = false) {
+
+}
+
+void performDjikstras(Graph& g, GraphBuilder& builder, Vertex begin, Vertex end, bool toVizualize = false) {
+    Search search;
+    string route = search.find_route(g, begin, end);
+    if (route != "") {
+        std::cout << "Shortest path is: " << route << std::endl;
+    }
+
+    if (toVizualize && route != "") {
+        std::vector<Vertex> vector_route = search.find_route_in_vector(g, begin, end);
+        vizualize(g, builder, vector_route);
+        std::cout << "Vizualized to output.png" << std::endl;
+    }
+    
+
+}
+
+//new version
+int main(int argc, char *argv[]) {
     Reader reader;
     std::vector<Airport> airports = reader.getAirportsFromFile("Data/airports.dat");
     std::vector<Route> routes = reader.getRoutesFromFile("Data/routes.dat");
+    std::map<std::string,Airport> airports_by_code;
     // Initialize a weighted and directed graph
-    Graph g_(true,true);
     for(auto &i:airports){
         // Store a subset of airports in the graph for testing
-        if(i.country=="Greenland"){
-            if(i.code!="\\N"){
-                g_.insertVertex(i.code.substr(1,3));
+        airports_by_code[i.code]=i;
+    }
+    GraphBuilder builder(airports,routes,airports_by_code);
+    Graph india=builder.country_subgraph("India");
+    Graph all=builder.get_full_graph();
+    if (argc <= 1) {
+        while (true) {
+            
+
+        
+            std::cout<<"Enter Code of Airport Your Flying From (type Q to quit): ";
+            Vertex begin="";
+            std::cin>>begin;
+            std::cout<<begin<<std::endl;
+            if(begin=="Q" || begin=="q"){
+                break;
             }
+            std::cout<<"Enter Code of Airport Your Flying Too (type Q to quit): ";
+            Vertex end="";
+            std::cin>>end;
+            std::cout<<end<<std::endl;
+            performBFS(all, begin, end, true);
+            performDjikstras(all, builder, begin, end, true);
+            //
+
         }
+
+    } else {
+        
     }
-    for(auto &i:routes){
-        // Store only the routes related to the airports in the graph
-        if(g_.vertexExists(i.source_code)&&g_.vertexExists(i.destination_code)){
-            g_.insertEdge(i.source_code,i.destination_code);
-        }
+    return 0;
+}
+
+
+
+
+
+/*
+int main(int argc, char *argv[]) {
+    Reader reader;
+    std::vector<Airport> airports = reader.getAirportsFromFile("Data/airports.dat");
+    std::vector<Route> routes = reader.getRoutesFromFile("Data/routes.dat");
+    std::map<std::string,Airport> airports_by_code;
+    // Initialize a weighted and directed graph
+    for(auto &i:airports){
+        // Store a subset of airports in the graph for testing
+        airports_by_code[i.code]=i;
     }
-    g_.print();
+    GraphBuilder builder(airports,routes,airports_by_code);
+    Graph india=builder.country_subgraph("India");
+    Graph all=builder.get_full_graph();
+    Search search;
+
+    if(argc>1){
+      Vertex begin=argv[1];
+      Vertex end=argv[2];
+      std::cout<<"Here's the shortest path by distance between these airports: "<<std::endl;
+      std::cout<<search.find_route(all,begin,end)<<std::endl;
+      return 0;
+    }
+    while(1){
+      std::cout<<"Enter Code of Airport Your Flying From (type Q to quit): ";
+      Vertex begin="";
+      std::cin>>begin;
+      std::cout<<begin<<std::endl;
+      if(begin=="Q" || begin=="q"){
+        break;
+      }
+      std::cout<<"Enter Code of Airport Your Flying Too (type Q to quit): ";
+      Vertex end="";
+      std::cin>>end;
+      std::cout<<end<<std::endl;
+      if(end=="Q" || end=="q"){
+        break;
+      }
+      std::cout<<"Here's the shortest path by distance between these airports: "<<std::endl;
+      std::cout<<search.find_route(all,begin,end)<<std::endl;
+    }
+    //g_.print();
 
 
     Drawer drawer = Drawer("Maps/output.png");
@@ -32,10 +141,7 @@ int main() {
     //drawer.addAirport(coord);
     std::pair<double, double> JFK = {40.6398,-73.7789};
     std::pair<double, double> nothercoord = {450.5, 69.1234};
-    /*
-    airport_coords.push_back(); //south chile
-    airport_coords.push_back(); //top alaska
-    airport_coords.push_back(); */
+
     drawer.addAirport({-55.340392,-68.243426});
     drawer.addAirport({35.998230,-5.601901});
     drawer.addAirport({71.061224,-156.349617});
@@ -43,4 +149,4 @@ int main() {
     drawer.drawMap();
 
     return 0;
-}
+}*/

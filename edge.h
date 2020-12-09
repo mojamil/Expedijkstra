@@ -106,5 +106,4 @@ class Edge
 private:
     string label; /**< The edge label **/
     int weight; /**< The edge weight (if in a weighed graph) **/
-
 };
