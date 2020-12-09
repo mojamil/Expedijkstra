@@ -15,7 +15,7 @@
  * note they have to be seperated i.e -d -v -b and not -bdv
 */
 
-void vizualize(Graph& g, GraphBuilder& builder, std::vector<Vertex> route) {
+void vizualize(Graph& g, GraphBuilder& builder, std::vector<Vertex> route, cs225::HSLAPixel Color = {.5, .5, .5}) {
         Drawer drawer = Drawer("Maps/output.png");
 
         drawer.addAirports(g, builder, route);
@@ -23,7 +23,7 @@ void vizualize(Graph& g, GraphBuilder& builder, std::vector<Vertex> route) {
         for (auto dB : route) {
             std::cout << dB << std::endl;
         }
-        drawer.drawMap({300, 1, .25});
+        drawer.drawMap(Color);
 }
 
 void performBFS(Graph& g, Vertex begin, Vertex end, bool toVizualize = false) {

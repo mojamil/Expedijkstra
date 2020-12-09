@@ -1,5 +1,5 @@
 #include "drawer.h"
-
+#include "cs225/Animation.h"
 
 Drawer::Drawer(const std::string output) : output_file_name(output) {
 //this->output_file_name = output;
@@ -73,6 +73,8 @@ void Drawer::drawMap(cs225::HSLAPixel route_color = {216, 1, .7, 1}) {
             }
         }
     }
+
+    cs225::Animation animation;
 
     for (unsigned long f = 0; f < this->airport_coords.size() - 1; ++f) {
         std::pair<double, double> curr_airport = airport_coords[f];
