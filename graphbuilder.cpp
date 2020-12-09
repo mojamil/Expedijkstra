@@ -1,6 +1,6 @@
 #include "graphbuilder.h"
       
-GraphBuilder::GraphBuilder(std::vector<Airport> airports,std::vector<Route> routes, std::map<std::string,Airport> airbc): airports_by_code(airbc), routes_(routes), all_airports(true,true){
+GraphBuilder::GraphBuilder(std::vector<Airport> airports,std::vector<Route> routes, std::unordered_map<std::string,Airport> airbc): airports_by_code(airbc), routes_(routes), all_airports(true,true){
 
     for(auto &i:airports){
         // Map of airports by country so its faster to create graphs

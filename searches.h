@@ -32,4 +32,5 @@ class Search{
     private:
 
         unordered_map<Vertex,Vertex> predecessor;
+        std::vector<Vertex> visited_vertices;
 };

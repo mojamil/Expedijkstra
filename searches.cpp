@@ -20,7 +20,7 @@ void Search::BFS(Graph * G, Vertex source, Vertex destination){
 
     // creating two unordered maps which store the state of the node and edge
     unordered_map<Vertex, string> nodeStateList;
-    unordered_map<Edge, string> edgeStateList; 
+    //unordered_map<Edge, string> edgeStateList; 
 
     //depth variable helps keep track of path length
     int depth = 0;
@@ -31,35 +31,49 @@ void Search::BFS(Graph * G, Vertex source, Vertex destination){
     }
 
     for (Edge edge : G -> getEdges()) {
-        edgeStateList.insert({edge, "UNUSED"});
+        G->setEdgeLabel(edge.source,edge.dest,"UNEXPLORED");
+        //edgeStateList.insert({edge, "UNUSED"});
     }
 
-    queue <Vertex> myQueue;
-    for (Vertex vertex : G -> getVertices()) {
-        myQueue.push(vertex);
-    }
+    // for (Vertex vertex : G -> getVertices()) {
+    //     myQueue.push(vertex);
+    // 
 
     if (!G->vertexExists(source) && !G->vertexExists(destination)) {
         //return "Invalid Input";
     } else {
-        nodeStateList[source] = "VISITED";
-        myQueue.pop(source);
-        while (!myQueue.empty()) {
-            for (Vertex vert : G -> getAdjacent(source)) {
-                for (Vertex vertex : G -> getAdjacent(source)) {
-                    if (nodeStateList[vertex] == "UNEXPLORED") {
-                        nodeStateList[vertex] == "VISITED";
-                        edgeStateList[G -> getEdge(source, vertex)] == "PATH EDGE";
-                    } else if (edgeStateList[G -> getEdge(source, vertex)] == "UNEXPLORED") {
-                        edgeStateList[G -> getEdge(source, vertex)] == "CROSS EDGE";
+        for (Vertex vert : G -> getVertices()) {
+            if(nodeStateList[vert]=="UNEXPLORED"){
+                std::queue <Vertex> myQueue;
+                if(nodeStateList[vert]!="VISITED"){
+                    visited_vertices.push_back(vert);
+                }
+                nodeStateList[vert] = "VISITED";
+
+                
+                myQueue.push(vert);
+                while (!myQueue.empty()) {
+                    source=myQueue.front();
+                    myQueue.pop();
+                    for (Vertex vertex : G -> getAdjacent(source)) {
+                        Edge edge = G -> getEdge(source, vertex);
+                        if (nodeStateList[vertex] == "UNEXPLORED") {
+                            if(nodeStateList[vertex]!="VISITED"){
+                                visited_vertices.push_back(vertex);
+                            }
+                            nodeStateList[vertex] = "VISITED";
+                            G->setEdgeLabel(edge.source,edge.dest,"PATH EDGE");
+                            //edgeStateList[edge] == "PATH EDGE";
+                        } else if (edge.getLabel() == "UNEXPLORED") {
+                            G->setEdgeLabel(edge.source,edge.dest,"CROSS EDGE");
+                        }
                     }
                 }
-                source = vert;
-            }
-
-            
-            
+            } 
         }
+    }
+    for (Vertex vertex : visited_vertices) {
+        std::cout<<vertex<<std::endl;
     }
 }
 

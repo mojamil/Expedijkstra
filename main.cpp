@@ -8,16 +8,17 @@ int main(int argc, char *argv[]) {
     Reader reader;
     std::vector<Airport> airports = reader.getAirportsFromFile("Data/airports.dat");
     std::vector<Route> routes = reader.getRoutesFromFile("Data/routes.dat");
-    std::map<std::string,Airport> airports_by_code;
+    std::unordered_map<std::string,Airport> airports_by_code;
     // Initialize a weighted and directed graph
     for(auto &i:airports){
         // Store a subset of airports in the graph for testing
         airports_by_code[i.code]=i;
     }
     GraphBuilder builder(airports,routes,airports_by_code);
-    Graph india=builder.country_subgraph("India");
+    Graph bd=builder.country_subgraph("Bangladesh");
     Graph all=builder.get_full_graph();
     Search search;
+    search.BFS(&bd,"DAC","ZYL");
     if(argc>1){
       Vertex begin=argv[1];
       Vertex end=argv[2];
