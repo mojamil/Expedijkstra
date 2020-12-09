@@ -5,9 +5,11 @@
 #include "airport.h"
 #include "route.h"
 #include "graph.h"
+
+
 class Search{
     public:
-        void BFS(Graph G);
+        void BFS(Graph * G, Vertex source, Vertex destination);
         
         /**
         * Runs Dijikstra's algorithm on a graph, G with starting vertex s.

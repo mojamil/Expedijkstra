@@ -9,8 +9,41 @@ class Comparator{
         }
 };
 
-void Search::BFS(Graph G){
+void Search::BFS(Graph * G, Vertex source, Vertex destination){
 
+    unordered_map<Vertex, string> nodeStateList;
+    unordered_map<Edge, string> edgeStateList; 
+
+    for (Vertex vertex : G -> getVertices()) {
+        nodeStateList.insert({vertex, "UNEXPLORED"});
+    }
+
+    for (Edge edge : G -> getEdges()) {
+        edgeStateList.insert({edge, "UNEXPLORED"});
+    }
+
+    if (!G->vertexExists(source) && !G->vertexExists(destination)) {
+        //return "Invalid Input";
+    } else {
+        queue<Vertex> myQueue;
+        nodeStateList[source] = "VISITED";
+        
+
+    }
+
+    myQueue.enqueue(myVertex);
+    while (!myQueue.empty()) {
+        myVertex = myQueue.dequeue()
+        for (Vertex each : G->adjacent(myVertex)) {
+            if (getLabel(each) == UNEXPLORED) {
+                setLabel(myVertex, each, DISCOVERY)
+                setLabel(each, VISITED)
+                myQueue.enqueue(each)
+            } else if (getLabel(v, w) == UNEXPLORED) {
+                setLabel(v, w, CROSS)
+            }
+        }
+    }
 }
 
 void Search::Dijkstra(Graph G, Vertex s){
