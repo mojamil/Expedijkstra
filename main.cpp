@@ -30,7 +30,7 @@ void vizualize(Graph& g, GraphBuilder& builder, std::vector<Vertex> route, cs225
 void performBFS(Graph& g, GraphBuilder& builder, Vertex begin, Vertex end, bool toVizualize = false) {
     Search search;
     if (toVizualize) {
-        search.animateBFS(&g, builder, begin, end, "Maps/output.gif", 10, cs225::HSLAPixel({.5, .5, .5, .5}));
+        search.animateBFS(&g, builder, begin, end, "Maps/output.gif", 300, cs225::HSLAPixel({.5, .5, .5, .5}));
         std::cout << "BFS vizualized at: Maps/bfs.gif" << std::endl;
     } else {
         search.BFS(&g, begin, end);
@@ -81,8 +81,8 @@ int main(int argc, char *argv[]) {
             Vertex end="";
             std::cin>>end;
             std::cout<<end<<std::endl;
-            performBFS(all, builder, begin, end, true);
-            performDjikstras(all, builder, begin, end, true);
+            performBFS(all, builder, begin, end, false);
+            performDjikstras(all, builder, begin, end, false);
             //
 
         }
