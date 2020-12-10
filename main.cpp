@@ -26,7 +26,13 @@ int main(int argc, char *argv[]) {
         else{
           search.BFS(&all);
         }
-        all.print("BFS.txt");
+        //all.print("BFS.txt");
+        std::ofstream file;
+        file.open("traversal_order");
+        for(auto &i:search.visited_vertices){
+          file<<i<<"->";
+        }
+        file.close();
       }
       else{
         Vertex begin=argv[1];

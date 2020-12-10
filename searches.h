@@ -9,8 +9,20 @@
 
 class Search{
     public:
-
+        /**
+        * Runs a BFS traversal starting at a random vertex and 
+        * traverese every single vertex in the graph.
+        * @param G - The graph to run the algorithm on
+        */
         void BFS(Graph * G);
+
+        /**
+        * Runs a BFS traversal starting at the source vertex
+        * traverses to vertices in that vertex's connected
+        * component
+        * @param G - The graph to run the algorithm on
+        * @param source - The starting vertex
+        */
         void BFS(Graph * G, Vertex source);
         
         /**
@@ -28,11 +40,11 @@ class Search{
         * @param G - The graph to run the algorithm on
         * @param start - The starting vertex
         * @param end - The destination vertex
-        * @return a path in string format
+        * @return a path in a vector
         */
         std::vector<std::string> find_route(Graph G,Vertex start,Vertex end);
+        std::vector<Vertex> visited_vertices;
     private:
 
         unordered_map<Vertex,Vertex> predecessor;
-        std::vector<Vertex> visited_vertices;
 };
