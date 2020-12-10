@@ -16,7 +16,10 @@
 #include <vector>
 #include "PNG.h"
 
-using namespace std;
+using std::string;
+
+
+//using namespace std;
 using namespace cs225;
 
 /**

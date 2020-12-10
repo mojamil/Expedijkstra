@@ -16,7 +16,11 @@ void drawMap(cs225::HSLAPixel route_color);
 void addAirport(const std::pair<double, double>& coords);
 void addAirports(std::vector<const std::pair<double, double>>& coords);
 void addAirports(Graph& g, GraphBuilder& builder, std::vector<Vertex> route);
-
+void drawAirport(Airport a, cs225::HSLAPixel color);
+void drawAirport(const std::pair<double, double> coords, cs225::HSLAPixel color);
+void drawFlight(Airport a, Airport b, cs225::HSLAPixel color);
+void drawFlight(std::pair<double, double> coorda, std::pair<double, double> coordb, cs225::HSLAPixel color);
+cs225::PNG* getPNG();
 
 private:
 //hard coded cuz I don't believe method would be adaptible to 

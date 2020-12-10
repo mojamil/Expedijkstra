@@ -2,14 +2,18 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include "cs225/Animation.h"
 #include "airport.h"
 #include "route.h"
 #include "graph.h"
+#include "graphbuilder.h"
 
 
 class Search{
     public:
         void BFS(Graph * G, Vertex source, Vertex destination);
+
+        void animateBFS(Graph* G, GraphBuilder& builder, Vertex source, Vertex destination, string output_file, int max_depth, cs225::HSLAPixel color);
         
         /**
         * Runs Dijikstra's algorithm on a graph, G with starting vertex s.
@@ -34,4 +38,5 @@ class Search{
     private:
 
         unordered_map<Vertex,Vertex> predecessor;
+        std::vector<Vertex> visited_vertices;
 };

@@ -16,7 +16,7 @@ class GraphBuilder{
         * @param  airbc- A map whose keys are the string airport code 
         * and their value is the corresponding Airport object
         */
-        GraphBuilder(std::vector<Airport>,std::vector<Route>,std::map<std::string,Airport>);
+        GraphBuilder(std::vector<Airport>,std::vector<Route>,std::unordered_map<std::string,Airport>);
          /**
         * Creates a graph out of the airports and domestic routes in a certain country 
         * @param country - The name of the country from where we will get the airports
@@ -54,8 +54,8 @@ class GraphBuilder{
         * @return The distance in miles between the two airports
         */
         double distance(Airport,Airport);
-        std::map<std::string,Airport> airports_by_code;
-        std::map<std::string,std::vector<Airport>> airports_by_country;
+        std::unordered_map<std::string,Airport> airports_by_code;
+        std::unordered_map<std::string,std::vector<Airport>> airports_by_country;
         std::vector<Route> routes_;
         Graph all_airports;
 };

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <map>
+#include <unordered_map>
 #include "filereader.h"
 #include "graph.h"
 #include "drawer.h"
@@ -26,8 +27,14 @@ void vizualize(Graph& g, GraphBuilder& builder, std::vector<Vertex> route, cs225
         drawer.drawMap(Color);
 }
 
-void performBFS(Graph& g, Vertex begin, Vertex end, bool toVizualize = false) {
-
+void performBFS(Graph& g, GraphBuilder& builder, Vertex begin, Vertex end, bool toVizualize = false) {
+    Search search;
+    if (toVizualize) {
+        search.animateBFS(&g, builder, begin, end, "Maps/output.gif", 10, cs225::HSLAPixel({.5, .5, .5, .5}));
+        std::cout << "BFS vizualized at: Maps/bfs.gif" << std::endl;
+    } else {
+        search.BFS(&g, begin, end);
+    }
 }
 
 void performDjikstras(Graph& g, GraphBuilder& builder, Vertex begin, Vertex end, bool toVizualize = false) {
@@ -51,20 +58,18 @@ int main(int argc, char *argv[]) {
     Reader reader;
     std::vector<Airport> airports = reader.getAirportsFromFile("Data/airports.dat");
     std::vector<Route> routes = reader.getRoutesFromFile("Data/routes.dat");
-    std::map<std::string,Airport> airports_by_code;
+    std::unordered_map<std::string,Airport> airports_by_code;
     // Initialize a weighted and directed graph
     for(auto &i:airports){
         // Store a subset of airports in the graph for testing
         airports_by_code[i.code]=i;
     }
     GraphBuilder builder(airports,routes,airports_by_code);
-    Graph india=builder.country_subgraph("India");
+    //Graph india=builder.country_subgraph("India");
     Graph all=builder.get_full_graph();
     if (argc <= 1) {
         while (true) {
             
-
-        
             std::cout<<"Enter Code of Airport Your Flying From (type Q to quit): ";
             Vertex begin="";
             std::cin>>begin;
@@ -76,7 +81,7 @@ int main(int argc, char *argv[]) {
             Vertex end="";
             std::cin>>end;
             std::cout<<end<<std::endl;
-            performBFS(all, begin, end, true);
+            performBFS(all, builder, begin, end, true);
             performDjikstras(all, builder, begin, end, true);
             //
 
@@ -97,17 +102,18 @@ int main(int argc, char *argv[]) {
     Reader reader;
     std::vector<Airport> airports = reader.getAirportsFromFile("Data/airports.dat");
     std::vector<Route> routes = reader.getRoutesFromFile("Data/routes.dat");
-    std::map<std::string,Airport> airports_by_code;
+    std::unordered_map<std::string,Airport> airports_by_code;
     // Initialize a weighted and directed graph
     for(auto &i:airports){
         // Store a subset of airports in the graph for testing
         airports_by_code[i.code]=i;
     }
     GraphBuilder builder(airports,routes,airports_by_code);
-    Graph india=builder.country_subgraph("India");
+    Graph bd=builder.country_subgraph("Bangladesh");
     Graph all=builder.get_full_graph();
     Search search;
 
+    search.BFS(&bd,"DAC","ZYL");
     if(argc>1){
       Vertex begin=argv[1];
       Vertex end=argv[2];

@@ -17,8 +17,11 @@
 #include <string>
 #include "Animation.h"
 #include "PNG.h"
+using std::stringstream;
+using std::cout;
+using std::endl;
 
-using namespace std;
+//using namespace std;
 using namespace cs225;
 namespace cs225 {
 template <typename T>
