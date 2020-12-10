@@ -9,7 +9,9 @@
 
 class Search{
     public:
-        void BFS(Graph * G, Vertex source, Vertex destination);
+
+        void BFS(Graph * G);
+        void BFS(Graph * G, Vertex source);
         
         /**
         * Runs Dijikstra's algorithm on a graph, G with starting vertex s.
@@ -28,7 +30,7 @@ class Search{
         * @param end - The destination vertex
         * @return a path in string format
         */
-        std::string find_route(Graph G,Vertex start,Vertex end);
+        std::vector<std::string> find_route(Graph G,Vertex start,Vertex end);
     private:
 
         unordered_map<Vertex,Vertex> predecessor;

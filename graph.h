@@ -221,6 +221,11 @@ public:
     void print() const;
 
     /**
+     * Prints the graph to file.
+    */
+    void print(string filename) const;
+
+    /**
      * Saves the graph as a PNG image.
      * @param title - the filename of the PNG image
      */

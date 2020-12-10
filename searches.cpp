@@ -16,16 +16,10 @@ class Comparator{
         }
 };
 
-void Search::BFS(Graph * G, Vertex source, Vertex destination){
-
-    // creating two unordered maps which store the state of the node and edge
-    unordered_map<Vertex, string> nodeStateList;
-    //unordered_map<Edge, string> edgeStateList; 
-
-    //depth variable helps keep track of path length
-    int depth = 0;
-    
-    // for loops for initialising states of nodes and edges
+unordered_map<Vertex, string> nodeStateList;
+int given_source=1;
+void Search::BFS(Graph * G){
+        // for loops for initialising states of nodes and edges
     for (Vertex vertex : G -> getVertices()) {
         nodeStateList.insert({vertex, "UNEXPLORED"});
     }
@@ -34,47 +28,64 @@ void Search::BFS(Graph * G, Vertex source, Vertex destination){
         G->setEdgeLabel(edge.source,edge.dest,"UNEXPLORED");
         //edgeStateList.insert({edge, "UNUSED"});
     }
-
-    // for (Vertex vertex : G -> getVertices()) {
-    //     myQueue.push(vertex);
-    // 
-
-    if (!G->vertexExists(source) && !G->vertexExists(destination)) {
-        //return "Invalid Input";
-    } else {
-        for (Vertex vert : G -> getVertices()) {
-            if(nodeStateList[vert]=="UNEXPLORED"){
-                std::queue <Vertex> myQueue;
-                if(nodeStateList[vert]!="VISITED"){
-                    visited_vertices.push_back(vert);
-                }
-                nodeStateList[vert] = "VISITED";
-
-                
-                myQueue.push(vert);
-                while (!myQueue.empty()) {
-                    source=myQueue.front();
-                    myQueue.pop();
-                    for (Vertex vertex : G -> getAdjacent(source)) {
-                        Edge edge = G -> getEdge(source, vertex);
-                        if (nodeStateList[vertex] == "UNEXPLORED") {
-                            if(nodeStateList[vertex]!="VISITED"){
-                                visited_vertices.push_back(vertex);
-                            }
-                            nodeStateList[vertex] = "VISITED";
-                            G->setEdgeLabel(edge.source,edge.dest,"PATH EDGE");
-                            //edgeStateList[edge] == "PATH EDGE";
-                        } else if (edge.getLabel() == "UNEXPLORED") {
-                            G->setEdgeLabel(edge.source,edge.dest,"CROSS EDGE");
-                        }
-                    }
-                }
-            } 
+    given_source=0;
+    for (Vertex vertex : G -> getVertices()) {
+        if(nodeStateList[vertex]=="UNEXPLORED"){
+            BFS(G,vertex);
         }
     }
-    // for (Vertex vertex : visited_vertices) {
-    //     std::cout<<vertex<<std::endl;
-    // }
+}
+
+void Search::BFS(Graph * G, Vertex source){
+
+    // creating two unordered maps which store the state of the node and edge
+    
+    //unordered_map<Edge, string> edgeStateList; 
+
+    //depth variable helps keep track of path length
+    if(given_source){
+        for (Vertex vertex : G -> getVertices()) {
+            nodeStateList.insert({vertex, "UNEXPLORED"});
+        }
+        for (Edge edge : G -> getEdges()) {
+            G->setEdgeLabel(edge.source,edge.dest,"UNEXPLORED");
+            //edgeStateList.insert({edge, "UNUSED"});
+        }
+    }
+
+    if (!G->vertexExists(source)) {
+        //return "Invalid Input";
+    } else {
+        Vertex vert=source;
+        if(nodeStateList[vert]=="UNEXPLORED"){
+            std::queue <Vertex> myQueue;
+            if(nodeStateList[vert]!="VISITED"){
+                visited_vertices.push_back(vert);
+            }
+            nodeStateList[vert] = "VISITED";
+
+            
+            myQueue.push(vert);
+            while (!myQueue.empty()) {
+                source=myQueue.front();
+                myQueue.pop();
+                for (Vertex vertex : G -> getAdjacent(source)) {
+                    Edge edge = G -> getEdge(source, vertex);
+                    if (nodeStateList[vertex] == "UNEXPLORED") {
+                        if(nodeStateList[vertex]!="VISITED"){
+                            visited_vertices.push_back(vertex);
+                        }
+                        nodeStateList[vertex] = "VISITED";
+                        G->setEdgeLabel(edge.source,edge.dest,"DISCOVERY");
+                        //edgeStateList[edge] == "PATH EDGE";
+                        myQueue.push(vertex);
+                    } else if (edge.getLabel() == "UNEXPLORED") {
+                        G->setEdgeLabel(edge.source,edge.dest,"CROSS EDGE");
+                    }
+                }
+            }
+        } 
+    }
 }
 
 void Search::Dijkstra(Graph G, Vertex s){
@@ -124,22 +135,24 @@ void Search::Dijkstra(Graph G, Vertex s){
     }
 }
 
-std::string Search::find_route(Graph G,Vertex start,Vertex end){
+std::vector<std::string> Search::find_route(Graph G,Vertex start,Vertex end){
     //Run Djikstra's algorithm and then print out the stops in order
+
+    std::vector<std::string> path;
     if(!G.vertexExists(end)||!G.vertexExists(start)){
-        return "Airport Code Incorrect";
+        return {"Airport Code Incorrect"};
     }
-    std::string out="";
     Dijkstra(G, start);
 
     Vertex curr=end;
-    out+=end;
+    path.insert(path.begin(),curr);
     while(curr!=start){
         if(predecessor[curr]==""){
-            return "No route between two airports";
+            return {"No route between two airports"};
         }
         curr=predecessor[curr];
-        out=curr+" -> "+out;
+        path.insert(path.begin(),curr);
+        
     }
-    return out;
+    return path;
 }
