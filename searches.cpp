@@ -18,13 +18,15 @@ class Comparator{
 };
 
 void Search::animateBFS(Graph* G, GraphBuilder& builder, Vertex source, string output_file, int max_edges, cs225::HSLAPixel color) {
+    Vertex start=source;
     unordered_map<Vertex, string> nodeStateList;
+    unordered_map<Vertex, int> nodedepth;
+    std::vector<string> ends;
     int given_source = 1;
     // creating two unordered maps which store the state of the node and edge
     
     //unordered_map<Edge, string> edgeStateList; 
 
-    //depth variable helps keep track of path length
     Animation animation;
     Drawer drawer("Maps/bfs.png");
     if(given_source){
@@ -36,6 +38,7 @@ void Search::animateBFS(Graph* G, GraphBuilder& builder, Vertex source, string o
             //edgeStateList.insert({edge, "UNUSED"});
         }
     }
+    nodedepth[source]=0;
 
     if (!G->vertexExists(source)) {
         //return "Invalid Input";
@@ -53,12 +56,18 @@ void Search::animateBFS(Graph* G, GraphBuilder& builder, Vertex source, string o
             myQueue.push(vert);
             while (!myQueue.empty()) {
                 source=myQueue.front();
+                if(source!=start&&!myQueue.empty()){
+                    if(nodedepth[myQueue.front()]==nodedepth[source]+1){
+                        ends.push_back(source);
+                    }
+                }
                 myQueue.pop();
                 for (Vertex vertex : G -> getAdjacent(source)) {
                     Edge edge = G -> getEdge(source, vertex);
                     if (nodeStateList[vertex] == "UNEXPLORED") {
                         if(nodeStateList[vertex]!="VISITED"){
                             visited_vertices.push_back(vertex);
+                            nodedepth[vertex]=nodedepth[source]+1;
                         }
                         nodeStateList[vertex] = "VISITED";
                         G->setEdgeLabel(edge.source,edge.dest,"DISCOVERY");
@@ -72,6 +81,7 @@ void Search::animateBFS(Graph* G, GraphBuilder& builder, Vertex source, string o
                         animation.addFrame(*drawer.getPNG());
                         num_flights += 1;
                         if (num_flights >= max_edges) {
+                            std::cout<<nodedepth[vertex]<<std::endl;
                             animation.write(output_file);
                             return;
                         }
@@ -83,6 +93,8 @@ void Search::animateBFS(Graph* G, GraphBuilder& builder, Vertex source, string o
             }
         } 
     }
+    ends.push_back(source);
+    
     animation.write(output_file);
 }
 
@@ -114,8 +126,9 @@ void Search::BFS(Graph * G, Vertex source){
     //unordered_map<Edge, string> edgeStateList; 
 
     //depth variable helps keep track of path length
-
+    Vertex start=source;
     unordered_map<Vertex, string> nodeStateList;
+
     int given_source=1;
     if(given_source){
         for (Vertex vertex : G -> getVertices()) {
@@ -126,7 +139,6 @@ void Search::BFS(Graph * G, Vertex source){
             //edgeStateList.insert({edge, "UNUSED"});
         }
     }
-
     if (!G->vertexExists(source)) {
         //return "Invalid Input";
     } else {
@@ -138,16 +150,17 @@ void Search::BFS(Graph * G, Vertex source){
             }
             nodeStateList[vert] = "VISITED";
 
-            
             myQueue.push(vert);
             while (!myQueue.empty()) {
                 source=myQueue.front();
                 myQueue.pop();
+
                 for (Vertex vertex : G -> getAdjacent(source)) {
                     Edge edge = G -> getEdge(source, vertex);
                     if (nodeStateList[vertex] == "UNEXPLORED") {
                         if(nodeStateList[vertex]!="VISITED"){
                             visited_vertices.push_back(vertex);
+                            
                         }
                         nodeStateList[vertex] = "VISITED";
                         G->setEdgeLabel(edge.source,edge.dest,"DISCOVERY");
