@@ -4,10 +4,7 @@
 Drawer::Drawer(const std::string output) : output_file_name(output) {
 //this->output_file_name = output;
     this->png = new cs225::PNG();
-    png->readFromFile(empty_map_file);
-    this->map_width = png->width();
-    this->map_height = png->height();
-    
+    png->readFromFile(empty_map_file);    
 }
 
 Drawer::~Drawer() {
@@ -36,6 +33,8 @@ void Drawer::addAirports(Graph& g, GraphBuilder& builder, std::vector<Vertex> ro
 std::pair<int, int> Drawer::convertCoordsToPixel(double latitude, double longitude) {
     //remeber goes in lat long, but comes out x, y which is opposite
     //there are 360 longitudinal lines
+    //Inspired by https://stackoverflow.com/questions/14329691/convert-latitude-longitude-point-to-a-pixels-x-y-on-mercator-projection
+
     if (longitude < -180 || longitude > 180 || latitude < -90 || latitude > 90) {
         std::cout << "Warning. Airport with coordinates " << latitude << ", " << longitude << " are invalid and may not print!" << std::endl;
     }
@@ -49,7 +48,6 @@ std::pair<int, int> Drawer::convertCoordsToPixel(double latitude, double longitu
 }
 
 void Drawer::drawAirport(Airport a, cs225::HSLAPixel color) {
-    //todo maybe delete
     const std::pair<double, double> coords = std::pair<double, double>(a.latitude, a.longitude);
     drawAirport(coords, color);
 }
@@ -90,16 +88,11 @@ void Drawer::drawFlight(std::pair<double, double> coorda, std::pair<double, doub
 
 
 
-void Drawer::drawMap(cs225::HSLAPixel route_color = {216, 1, .7, 1}) {
+void Drawer::drawPrebuiltMap(cs225::HSLAPixel route_color = {216, 1, .7, 1}) {
 
-   // for (std::pair<double, double> airport_coord : this->airport_coords) {
-    
- 
-    //airport_coords.push_back({-1.2120699882507324,-78.57460021972656,8502}
     cs225::HSLAPixel color;
     for (unsigned long f = 0; f < airport_coords.size(); ++f) {
         std::pair<int, int> pixel_coords = convertCoordsToPixel(airport_coords[f].first, airport_coords[f].second);
-        //std::cout << pixel_coords.first << "," << pixel_coords.second << std::endl;
         if (f == 0) {
             color = RED;
         } else if (f == airport_coords.size() - 1) {
