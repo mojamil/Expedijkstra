@@ -58,6 +58,15 @@ Graph GraphBuilder::get_full_graph(){
     return all_airports;
 }
 
+Airport GraphBuilder::get_airport_from_code(std::string code) {
+    if (airports_by_code.find(code) == airports_by_code.end()) {
+        Airport airport;
+        return airport;
+    } else {
+        return airports_by_code[code];
+    }
+}
+
 double GraphBuilder::distance(Airport source,Airport dest){
     // Using Haversine Formula
     std::vector<double> latlon;

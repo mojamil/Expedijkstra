@@ -63,3 +63,4 @@ namespace cs225 {
   std::ostream & operator<<(std::ostream & out, HSLAPixel const & pixel);
   std::stringstream & operator<<(std::stringstream & out, HSLAPixel const & pixel);
 }
+

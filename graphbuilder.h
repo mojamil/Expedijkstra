@@ -5,6 +5,7 @@
 #include "route.h"
 #include "graph.h"
 #include <cmath>
+#include <map>
 
 class GraphBuilder{
     public:
@@ -37,6 +38,13 @@ class GraphBuilder{
         * that are the routes between the airports
         */
         Graph get_full_graph();
+
+        /**
+         * Used to get the propper longitude latitude of an airport
+         * @return An airport object associated with a given code
+         * returns empty airport object if code invalid
+         **/
+        Airport get_airport_from_code(std::string code);
         
     private:
         /**
