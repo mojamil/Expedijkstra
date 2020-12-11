@@ -47,9 +47,9 @@ class Search{
         * @param G - The graph to run the algorithm on
         * @param start - The starting vertex
         * @param end - The destination vertex
-        * @return a path in string format
+        * @return a path in a vector
         */
-        std::string find_route(Graph& G,Vertex start,Vertex end);
+        //std::string find_route(Graph& G,Vertex start,Vertex end);
 
         /**
          * Finds the route by listing every element in the travesal order in vector form.

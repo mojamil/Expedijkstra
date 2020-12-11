@@ -233,23 +233,25 @@ std::vector<std::string> Search::find_route_in_vector(Graph& G, Vertex start, Ve
     }
     return path;
 }
-
+/*
 std::string Search::find_route(Graph& G,Vertex start,Vertex end){
     //Run Djikstra's algorithm and then print out the stops in order
+
+    std::vector<std::string> path;
     if(!G.vertexExists(end)||!G.vertexExists(start)){
-        return "Airport Code Incorrect";
+        return {"Airport Code Incorrect"};
     }
-    std::string out="";
     Dijkstra(G, start);
 
     Vertex curr=end;
-    out+=end;
+    path.insert(path.begin(),curr);
     while(curr!=start){
         if(predecessor[curr]==""){
-            return "No route between two airports";
+            return {"No route between two airports"};
         }
         curr=predecessor[curr];
-        out=curr+" -> "+out;
+        path.insert(path.begin(),curr);
+        
     }
-    return out;
-}
+    return path;
+}*/

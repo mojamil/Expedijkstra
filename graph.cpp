@@ -396,6 +396,31 @@ void Graph::print() const
     }
 }
 
+void Graph::print(string filename) const
+{
+    std::ofstream file;
+    file.open(filename);
+    for (auto it = adjacency_list.begin(); it != adjacency_list.end(); ++it) 
+    {
+        file << it->first << endl;
+        for (auto it2 = it->second.begin(); it2 != it->second.end(); ++it2) 
+        {
+            std::stringstream ss;
+            ss << it2->first; 
+            string vertexColumn = "    => " + ss.str();
+            vertexColumn += " " ;
+            file << std::left << std::setw(26) << vertexColumn;
+            string edgeColumn = "edge label = \"" + it2->second.getLabel()+ "\"";
+            file << std::left << std::setw(26) << edgeColumn;
+            if (weighted)
+                file << "weight = " << it2->second.getWeight();
+            file << endl;
+        }
+        file << endl;
+    }
+    file.close();
+}
+
 /**
  * Saves the graph as a PNG image.
  * @param title - the filename of the PNG image

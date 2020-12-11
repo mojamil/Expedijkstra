@@ -50,8 +50,10 @@ Graph GraphBuilder::countries_subgraph(std::vector<std::string> countries){
 Graph GraphBuilder::get_full_graph(){
     for(auto &i:routes_){
         // Store only the routes related to the airports in the graph
-        all_airports.insertEdge(i.source_code,i.destination_code);
-        all_airports.setEdgeWeight(i.source_code,i.destination_code,distance(airports_by_code[i.source_code],airports_by_code[i.destination_code]));
+        if(all_airports.vertexExists(i.source_code)&&all_airports.vertexExists(i.destination_code)){
+            all_airports.insertEdge(i.source_code,i.destination_code);
+            all_airports.setEdgeWeight(i.source_code,i.destination_code,distance(airports_by_code[i.source_code],airports_by_code[i.destination_code]));
+        }
     }
     return all_airports;
 }
