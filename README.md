@@ -32,7 +32,7 @@ We wanted to graph flights, and determine the optimal path. In addition we wante
  * ./air -d JFK; SFO - Does Dijkstras from JFK to SFO. Printed out optimal route in command line.
  * ./air -b -ve JFK 40; Performs and vizualizes bfs from JFK. Vizualization adds a frame every edge, so very slow. Will add 40 frames. Can view in Maps/vizualize_by_edges.gif. A preloaded one called isp400.gif is there if you want to see it without building one.
  * ./air -b -vl JFK; Performs and vizualizes bfs from JFK by layer (every bfs is done with that layer of depth).
- * ./air -d -v JFK SFO; Does Dijkstras from JFK to SFO and vizualizes it.
+ * ./air -d -v JFK SFO; Does Dijkstras from JFK to SFO and vizualizes it. Starts at red and ends at green with all intermediate airports in blue.
  * ./air; Allows user to input to airports in loop to continueally find best route with Dijikstras.
 ## Results
 All results are in Examples folder.
@@ -40,7 +40,7 @@ All results are in Examples folder.
 #### Dijikstras algorithm text proof from Chacalluta Airport in Chile, to Jersey Airport in Jersey, Channel Islands.
 Chacalluta Airport, Arica -> El Alto International Airport, La Paz -> Viru Viru International Airport, Santa Cruz -> Adolfo Suárez Madrid–Barajas Airport, Madrid -> Nantes Atlantique Airport, Nantes -> Southampton Airport, Southampton -> Jersey Airport, Jersey
 
-#### Djikistras Vizualization from Kristianstad Airport (KID) in Scania, Sweden to  Uberlandia Airport in Uberlândia, Brazil
+#### Djikistras Vizualization from Kristianstad Airport (KID) in Scania, Sweden to  Uberlandia Airport (UDI) in Uberlândia, Brazil
 ![alt text](https://github-dev.cs.illinois.edu/cs225-fa20/shaffar3-smvarma2-mjamil3/blob/master/Examples/kid_udi_dijikstra.png)
 #### BFS animation by layer from Herat Airport (HEA) in Herat, Afganistan
 ![alt text](https://github-dev.cs.illinois.edu/cs225-fa20/shaffar3-smvarma2-mjamil3/blob/master/Examples/herat_bfs_by_layer.gif)
