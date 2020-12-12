@@ -21,7 +21,9 @@ We wanted to graph flights, and determine the optimal path. In addition we wante
  * -b = bfs Can check bfs traversal at traversal_order.txt.
  * -v = vizualize Can view line in Maps folder depending on which one used. 
  
- ### BFS vizualizations customizations (must use -d and -b)
+ ### DFS vizualization
+ * -d and -v. Viewable at Maps/dijikstras.png. Route starts at red and ends at green, with blue airports as intermediate.
+ ### BFS vizualizations customizations (must use -b and some form of -v)
  
  * -ve or -v or -ve NUM: vizulize bfs with edge every second. Takes long time depending on num inputed.
   If no num or invalid num, it defaults to 4. Takes much quicker. Will be viewable  in file Maps/bfs_by_edges.gif.
@@ -44,7 +46,7 @@ Chacalluta Airport, Arica -> El Alto International Airport, La Paz -> Viru Viru 
 ![alt text](https://github-dev.cs.illinois.edu/cs225-fa20/shaffar3-smvarma2-mjamil3/blob/master/Examples/kid_udi_dijikstra.png)
 #### BFS animation by layer from Herat Airport (HEA) in Herat, Afganistan
 ![alt text](https://github-dev.cs.illinois.edu/cs225-fa20/shaffar3-smvarma2-mjamil3/blob/master/Examples/herat_bfs_by_layer.gif)
-#### BFS animation by edge from Macarther Airport (ISP) in Islip, New York with 400 edges.
+#### BFS animation by edge from Macarther Airport (ISP) in Islip, New York for the first 400 edges of traversal.
 ![alt text](https://github-dev.cs.illinois.edu/cs225-fa20/shaffar3-smvarma2-mjamil3/blob/master/Examples/isp_bfs_by_edge_400.gif)
  <br />
 Actual order of bfs traversal from Minot International Airport (MOT) in Minot, North Dakota, can be found at https://github-dev.cs.illinois.edu/cs225-fa20/shaffar3-smvarma2-mjamil3/blob/master/Examples/mot_bfs_order.txt.gif
