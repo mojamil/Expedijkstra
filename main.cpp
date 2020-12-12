@@ -19,25 +19,22 @@
  * 
  * bfs vizualizations customizations (must use -d and -b)
  * 
- * -ve or -v: vizulize bfs with layer every second. Takes longer
- * -vl or -vl NUM: vizualization of bfs with a new edge every frame, with the inputed number of edges. If no 
- * num or invalid num, it defaults to 4. Takes much qui
+ * -ve or -v or -ve NUM: vizulize bfs with edge every second. Takes long time depending on num inputed.
+ *  If no num or invalid num, it defaults to 4. Takes much quicker
+ * -vl or -vl : vizualization of bfs with a new layer every frame, with the inputed number of edges.
  * 
  * note they have to be seperated i.e -d -v -b and not -bdv
  * Order should matter
  * ex. ./air -b JFK; Does bfs traversal begininng at JFK
  * ex. ./air -d JFK; SFO - Does Dijkstras from JFK to SFO
- * ex. ./air -b -v JFK 100; Performs and vizualizes bfs from JFK. Vizualization adds a frame every edge, so very slow. Will add 100 frames.
+ * ex. ./air -b -ve JFK 100; Performs and vizualizes bfs from JFK. Vizualization adds a frame every edge, so very slow. Will add 100 frames.
  * ex. ./air -b -vl JFK; Performs and vizualizes bfs from JFK by layer (every bfs is done with that layer of depth).
  * ex. ./air -d -v JFK SFO - Does Dijkstras from JFK to SFO and vizualizes it
  * ex. ./air Allows user to input to airports in loop to continueally find best route with Dijikstras.
- * 
 */
 
 /**
  * Quick helper function to draw Djikstras on map
- * 
- * 
  */
 void vizualizeDijikstras(Graph& g, GraphBuilder& builder, std::vector<Vertex> route, cs225::HSLAPixel Color = {.5, .5, .5}) {
         Drawer drawer = Drawer("Maps/dijikstras.png");
@@ -46,6 +43,9 @@ void vizualizeDijikstras(Graph& g, GraphBuilder& builder, std::vector<Vertex> ro
         std::cout << "vizualized dijkstras algorithm at Maps/dijikstras.png" << std::endl;
 }
 
+/**
+ * Returns true if flag is found, false otherwise. If that flag is found it is remove from vector.
+ */
 bool removeFlag(std::vector<string>& args, string flag) {
     for (unsigned long f = 0; f < args.size(); ++f) {
         if (args[f] == flag) {

@@ -1,0 +1,2 @@
+Example of dijikstras algorithm picking path. This one is copied and pasted to terminal by me.
+Chacalluta Airport, Arica -> El Alto International Airport, La Paz -> Viru Viru International Airport, Santa Cruz -> Adolfo Suárez Madrid–Barajas Airport, Madrid -> Nantes Atlantique Airport, Nantes -> Southampton Airport, Southampton -> Jersey Airport, Jersey
