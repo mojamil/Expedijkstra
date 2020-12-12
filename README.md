@@ -1,4 +1,4 @@
-# Expedijistra
+# Expedijkstra
  By Jeremy Shaffar, Siriam Mantheem, Muhammed Safwat Jamil. 
  <br />
  Final Project for CS225 at UIUC
