@@ -32,7 +32,7 @@ We wanted to graph flights, and determine the optimal path. In addition we wante
  ### Example Usage 
  * ./air -b JFK; Does bfs traversal begininng at JFK. Can check bfs traversal at traversal_order.txt.
  * ./air -d JFK; SFO - Does Dijkstras from JFK to SFO. Printed out optimal route in command line.
- * ./air -b -ve JFK 40; Performs and vizualizes bfs from JFK. Vizualization adds a frame every edge, so very slow. Will add 40 frames. Can view in Maps/vizualize_by_edges.gif. A preloaded one called isp400.gif is there if you want to see it without building one.
+ * ./air -b -ve JFK 40; Performs and vizualizes bfs from JFK. Vizualization adds a frame every edge, so very slow. Will add 40 frames. Can view in Maps/vizualize_by_edges.gif. A preloaded one located in the example folder, and also is below, is there if you want to see it without building one.
  * ./air -b -vl JFK; Performs and vizualizes bfs from JFK by layer (every bfs is done with that layer of depth).
  * ./air -d -v JFK SFO; Does Dijkstras from JFK to SFO and vizualizes it. Starts at red and ends at green with all intermediate airports in blue.
  * ./air; Allows user to input to airports in loop to continueally find best route with Dijikstras.
