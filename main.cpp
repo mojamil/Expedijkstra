@@ -10,26 +10,40 @@
 
 /**
  * input options:
- * no flags = graph bfs, djikstras, and vizualize
+ * 
+ * basics
+ * no flags = Continually input two airports to get optimal route in command line
  * -d = djikstras 
- * -b = bfs 
+ * -b = bfs
  * -v = vizualize 
+ * 
+ * bfs vizualizations customizations (must use -d and -b)
+ * 
+ * -ve or -v: vizulize bfs with layer every second. Takes longer
+ * -vl or -vl NUM: vizualization of bfs with a new edge every frame, with the inputed number of edges. If no 
+ * num or invalid num, it defaults to 4. Takes much qui
+ * 
  * note they have to be seperated i.e -d -v -b and not -bdv
  * Order should matter
  * ex. ./air -b JFK; Does bfs traversal begininng at JFK
  * ex. ./air -d JFK; SFO - Does Dijkstras from JFK to SFO
- * ex. ./air -b -v JFK; Performs and vizualizes bfs from JFK
+ * ex. ./air -b -v JFK 100; Performs and vizualizes bfs from JFK. Vizualization adds a frame every edge, so very slow. Will add 100 frames.
+ * ex. ./air -b -vl JFK; Performs and vizualizes bfs from JFK by layer (every bfs is done with that layer of depth).
  * ex. ./air -d -v JFK SFO - Does Dijkstras from JFK to SFO and vizualizes it
  * ex. ./air Allows user to input to airports in loop to continueally find best route with Dijikstras.
  * 
 */
 
+/**
+ * Quick helper function to draw Djikstras on map
+ * 
+ * 
+ */
 void vizualizeDijikstras(Graph& g, GraphBuilder& builder, std::vector<Vertex> route, cs225::HSLAPixel Color = {.5, .5, .5}) {
         Drawer drawer = Drawer("Maps/dijikstras.png");
-
         drawer.addAirports(g, builder, route);
         drawer.drawPrebuiltMap(Color);
-        std::cout << "vizualized dijkstras algoirthm at Maps/dijikstras.png" << std::endl;
+        std::cout << "vizualized dijkstras algorithm at Maps/dijikstras.png" << std::endl;
 }
 
 bool removeFlag(std::vector<string>& args, string flag) {
@@ -66,10 +80,20 @@ int main(int argc, char *argv[]) {
     
     //bfs
     if(removeFlag(arguements, "-bfs") || removeFlag(arguements, "-b") || removeFlag(arguements, "-B")) {
-        if (removeFlag(arguements, "-v")) {
-          string file_name = "Maps/bfs.gif";
-            search.animateBFS(&all, builder, arguements[0], file_name, 100);
+        if (removeFlag(arguements, "-v") || removeFlag(arguements, "-V") || removeFlag(arguements, "-ve") || removeFlag(arguements, "VE")) { // bfs by edges
+          string file_name = "Maps/bfs_by_edges.gif";
+            if (arguements.size() > 1 && !arguements[1].empty() && std::all_of(arguements[1].begin(), arguements[1].end(), ::isdigit)) {
+              search.animateBFSByEdges(&all, builder, arguements[0], std::stoi(arguements[1]), file_name);
+            } else { 
+                int default_edges = 4;   
+                std::cout << "No arguements for number of edges desired in vizualization, so defaulting to " << default_edges << std::endl;        
+                search.animateBFSByEdges(&all, builder, arguements[0], default_edges, file_name);
+            }
             std::cout << "BFS vizaualized at: " << file_name << std::endl;
+        } else if (removeFlag(arguements, "-vl") || removeFlag(arguements, "-VL")) { //bfs by layer
+          string file_name = "Maps/bfs_by_layer.gif";
+          search.animateBFSByLayer(&all, builder, arguements[0], file_name); 
+          std::cout << "BFS vizualized at: " << file_name << " by layer." << std::endl; 
         } else if (arguements.size() > 0) {
             search.BFS(&all, arguements[0]); //bfs with provided params
         } else {
@@ -93,12 +117,15 @@ int main(int argc, char *argv[]) {
 
         Vertex begin=arguements[0];
         Vertex end=arguements[1];
-        std::cout<<"Here's the shortest path by distance between these airports: "<<std::endl;
         std::vector<std::string> path=search.find_route_in_vector(all,begin,end);
-        if(path.size()==1){
-          std::cout<<path[0]<<std::endl;
+
+        if(path.size()<=1){
+          std::cout << "No path between 2 airports. Potentially invalid airport, or no path. Exiting now." << std::endl;
           return 0;
         }
+
+        std::cout<<"Here's the shortest path by distance between these airports: "<<std::endl;
+
         for(auto &i:path){
           if(i!=path[path.size()-1]){
             std::cout<<airports_by_code[i].name<<", "<<airports_by_code[i].city<<" -> ";
