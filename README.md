@@ -1,8 +1,44 @@
-# shaffar3-smvarma2-mjamil3
+# Expedijistra
+ By Jeremy Shaffar, Siriam Mantheem, Muhammed Safwat Jamil. 
+ <br />
+ Final Project for CS225 at UIUC
 
 ## Presentation Video
 Here is the link to our final presentation video:
 https://uofi.box.com/s/iqgz9p3chj5m6lsovrh73raqiz5vm15x
+
+## Purpose
+We wanted to graph flights, and determine the optimal path. In addition we wanted to traverse the graph to see all the paths, and vizualize how to get to all of the airports from one airport.
+
+## Usage
+### Notes 
+* Airports are referenced by there IATA code. See https://www.iata.org/en/publications/directories/code-search/?airport.search=JFK to search for specific airports.
+* Flags have to be seperated i.e -d -v -b and not -bdv. Although it doesn't matter order of the flags, -b and -d flags cannot be used together, and -vl and -ve flags cannot be used with -d either, as they are specific animation customizations. 
+ ### Basics
+ * no flags = Continually input two airports to get optimal route in command line. Ends when q or Q is pressed.
+ * -d = djikstras Can view shortest route in command line
+ * -b = bfs Can check bfs traversal at traversal_order.txt.
+ * -v = vizualize Can view line in Maps folder depending on which one used. 
+ 
+ ### BFS vizualizations customizations (must use -d and -b)
+ 
+ * -ve or -v or -ve NUM: vizulize bfs with edge every second. Takes long time depending on num inputed.
+  If no num or invalid num, it defaults to 4. Takes much quicker. Will be viewable  in file Maps/bfs_by_edges.gif.
+ * -vl or -vl : vizualization of bfs with a new layer every frame, with the inputed number of edges. Will be viewable in Maps/bfs_by_layer.gif.
+ 
+ ### Example Usage 
+ * ex. ./air -b JFK; Does bfs traversal begininng at JFK. Can check bfs traversal at traversal_order.txt.
+ * ex. ./air -d JFK; SFO - Does Dijkstras from JFK to SFO. Printed out optimal route in command line.
+ * ex. ./air -b -ve JFK 40; Performs and vizualizes bfs from JFK. Vizualization adds a frame every edge, so very slow. Will add 40 frames. Can view in Maps/vizualize_by_edges.gif. A preloaded one called isp400.gif is there if you want to see it without building one.
+ * ex. ./air -b -vl JFK; Performs and vizualizes bfs from JFK by layer (every bfs is done with that layer of depth).
+ * ex. ./air -d -v JFK SFO - Does Dijkstras from JFK to SFO and vizualizes it.
+ * ex. ./air Allows user to input to airports in loop to continueally find best route with Dijikstras.
+## Results
+BFS animation by layer from Herat Airport (HEA) in Herat, Afganistan
+![alt text](https://github-dev.cs.illinois.edu/cs225-fa20/shaffar3-smvarma2-mjamil3/blob/master/Maps/bfs.gif)
+BFS animation by edge from Macarther Airport (ISP) in Islip, New York with 400 edges.
+![alt text](https://github-dev.cs.illinois.edu/cs225-fa20/shaffar3-smvarma2-mjamil3/blob/master/Maps/isp400.gif)
+
 
 ## Data Format
 The data is in a .dat file and is separated by commas. There is an airports.dat that contains airport data with the following fields in order. The fields are strings unless stated otherwise(Like latitude, longitude, altitude):
@@ -37,8 +73,4 @@ Stops 	                Number of stops on this flight ("0" for direct)
 Equipment               3-letter codes for plane type(s) generally used on this flight, separated by spaces
  ```
  Our code only uses the 3-letter (IATA) code for the airports from the routes file.
- ## Instructions
- * To build the executable run ```make``` in the command line
- * To find the shortest path between two airports:
-   - You can run ```./air``` in the command line and you will be prompted to enter the 3 digit codes of the source and destination airports
-   - Or you can run ``` ./air source destination ``` replacing the source and destination with the 3 digit codes of the source and destination airports respectively.
+
