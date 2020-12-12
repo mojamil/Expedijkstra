@@ -15,3 +15,11 @@ We implemented Djikras, added weights to graphs, and made progress on graphical 
 1. Mohammed - Implemented and tested Djikras algorithm, and added weights to graph structure.
 2. Jeremy - Worked on graphical output, and projected points from lat longitude form to its counterparts in pixel form.
 3. Sririam - Worked on BFS, continued to work on potential optimizations and education about BFS algorithm.
+
+## Week 3
+
+We finished BFS, added a input system and our graphical output is working. 
+
+1. Mohammed - Fixed bugs and worked on input system.
+2. Jeremy - Added graphical output for Dijkstra and BFS.
+3. Sririam - Finished BFS.
