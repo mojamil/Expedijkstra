@@ -1,4 +1,4 @@
-# Expedijkstra
+# ✈️ Expedijkstra ✈️
  By Jeremy Shaffar, Siriam Mantheem, Muhammed Safwat Jamil. 
  <br />
  Final Project for CS225 at UIUC
@@ -13,7 +13,8 @@ We wanted to graph flights, and determine the optimal path. In addition we wante
 ## Usage
 ### Notes 
 * Airports are referenced by there IATA code. See https://www.iata.org/en/publications/directories/code-search/?airport.search=JFK to search for specific airports.
-* Flags have to be seperated i.e -d -v -b and not -bdv. Although it doesn't matter order of the flags, -b and -d flags cannot be used together, and -vl and -ve flags cannot be used with -d either, as they are specific animation customizations. 
+* Flags have to be seperated i.e -d -v -b and not -bdv. Although it doesn't matter order of the flags, -b and -d flags cannot be used together, and -vl and -ve flags cannot be used with -d either, as they are specific animation customizations.
+* Airports must be full capital i.e JFK not Jfk
  ### Basics
  * no flags = Continually input two airports to get optimal route in command line. Ends when q or Q is pressed.
  * -d = djikstras Can view shortest route in command line
@@ -27,18 +28,26 @@ We wanted to graph flights, and determine the optimal path. In addition we wante
  * -vl or -vl : vizualization of bfs with a new layer every frame, with the inputed number of edges. Will be viewable in Maps/bfs_by_layer.gif.
  
  ### Example Usage 
- * ex. ./air -b JFK; Does bfs traversal begininng at JFK. Can check bfs traversal at traversal_order.txt.
- * ex. ./air -d JFK; SFO - Does Dijkstras from JFK to SFO. Printed out optimal route in command line.
- * ex. ./air -b -ve JFK 40; Performs and vizualizes bfs from JFK. Vizualization adds a frame every edge, so very slow. Will add 40 frames. Can view in Maps/vizualize_by_edges.gif. A preloaded one called isp400.gif is there if you want to see it without building one.
- * ex. ./air -b -vl JFK; Performs and vizualizes bfs from JFK by layer (every bfs is done with that layer of depth).
- * ex. ./air -d -v JFK SFO - Does Dijkstras from JFK to SFO and vizualizes it.
- * ex. ./air Allows user to input to airports in loop to continueally find best route with Dijikstras.
+ * ./air -b JFK; Does bfs traversal begininng at JFK. Can check bfs traversal at traversal_order.txt.
+ * ./air -d JFK; SFO - Does Dijkstras from JFK to SFO. Printed out optimal route in command line.
+ * ./air -b -ve JFK 40; Performs and vizualizes bfs from JFK. Vizualization adds a frame every edge, so very slow. Will add 40 frames. Can view in Maps/vizualize_by_edges.gif. A preloaded one called isp400.gif is there if you want to see it without building one.
+ * ./air -b -vl JFK; Performs and vizualizes bfs from JFK by layer (every bfs is done with that layer of depth).
+ * ./air -d -v JFK SFO; Does Dijkstras from JFK to SFO and vizualizes it.
+ * ./air; Allows user to input to airports in loop to continueally find best route with Dijikstras.
 ## Results
-BFS animation by layer from Herat Airport (HEA) in Herat, Afganistan
-![alt text](https://github-dev.cs.illinois.edu/cs225-fa20/shaffar3-smvarma2-mjamil3/blob/master/Maps/bfs.gif)
-BFS animation by edge from Macarther Airport (ISP) in Islip, New York with 400 edges.
-![alt text](https://github-dev.cs.illinois.edu/cs225-fa20/shaffar3-smvarma2-mjamil3/blob/master/Maps/isp400.gif)
+All results are in Examples folder.
 
+#### Dijikstras algorithm text proof from Chacalluta Airport in Chile, to Jersey Airport in Jersey, Channel Islands.
+Chacalluta Airport, Arica -> El Alto International Airport, La Paz -> Viru Viru International Airport, Santa Cruz -> Adolfo Suárez Madrid–Barajas Airport, Madrid -> Nantes Atlantique Airport, Nantes -> Southampton Airport, Southampton -> Jersey Airport, Jersey
+
+#### Djikistras Vizualization from Kristianstad Airport (KID) in Scania, Sweden to  Uberlandia Airport in Uberlândia, Brazil
+![alt text](https://github-dev.cs.illinois.edu/cs225-fa20/shaffar3-smvarma2-mjamil3/blob/master/Examples/kid_udi_dijikstra.png)
+#### BFS animation by layer from Herat Airport (HEA) in Herat, Afganistan
+![alt text](https://github-dev.cs.illinois.edu/cs225-fa20/shaffar3-smvarma2-mjamil3/blob/master/Examples/herat_bfs_by_layer.gif)
+#### BFS animation by edge from Macarther Airport (ISP) in Islip, New York with 400 edges.
+![alt text](https://github-dev.cs.illinois.edu/cs225-fa20/shaffar3-smvarma2-mjamil3/blob/master/Examples/isp_bfs_by_edge_400.gif)
+ <br />
+Actual order of bfs traversal from Minot International Airport (MOT) in Minot, North Dakota, can be found at https://github-dev.cs.illinois.edu/cs225-fa20/shaffar3-smvarma2-mjamil3/blob/master/Examples/mot_bfs_order.txt.gif
 
 ## Data Format
 The data is in a .dat file and is separated by commas. There is an airports.dat that contains airport data with the following fields in order. The fields are strings unless stated otherwise(Like latitude, longitude, altitude):
