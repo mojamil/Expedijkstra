@@ -49,7 +49,7 @@ Chacalluta Airport, Arica -> El Alto International Airport, La Paz -> Viru Viru 
 #### BFS animation by edge from Macarther Airport (ISP) in Islip, New York for the first 400 edges of traversal.
 ![alt text](https://github-dev.cs.illinois.edu/cs225-fa20/shaffar3-smvarma2-mjamil3/blob/master/Examples/isp_bfs_by_edge_400.gif)
  <br />
-Actual order of bfs traversal from Minot International Airport (MOT) in Minot, North Dakota, can be found at https://github-dev.cs.illinois.edu/cs225-fa20/shaffar3-smvarma2-mjamil3/blob/master/Examples/mot_bfs_order.txt.gif
+Actual order of bfs traversal from Minot International Airport (MOT) in Minot, North Dakota, can be found at https://github-dev.cs.illinois.edu/cs225-fa20/shaffar3-smvarma2-mjamil3/blob/master/Examples/mot_bfs_order.txt
 
 ## Data Format
 The data is in a .dat file and is separated by commas. There is an airports.dat that contains airport data with the following fields in order. The fields are strings unless stated otherwise(Like latitude, longitude, altitude):
