@@ -26,15 +26,15 @@ We wanted to graph flights, and determine the optimal path. In addition we wante
  ### BFS vizualizations customizations (must use -b and some form of -v)
  
  * -ve or -v or -ve NUM: vizulize bfs with edge every second. Takes long time depending on num inputed.
-  If no num or invalid num, it defaults to 4. Takes much quicker. Will be viewable  in file Maps/bfs_by_edges.gif.
- * -vl or -vl : vizualization of bfs with a new layer every frame, with the inputed number of edges. Will be viewable in Maps/bfs_by_layer.gif.
+  If no num or invalid num, it defaults to 4 which should be fairly quick. Will be viewable  in file Maps/bfs_by_edges.gif.
+ * -vl : vizualization of bfs with a new layer every frame, with the inputed number of edges. Will be viewable in Maps/bfs_by_layer.gif. This should be much quicker than -ve, with only a couple frames in the animation. 
  
  ### Example Usage 
  * ./air -b JFK; Does bfs traversal begininng at JFK. Can check bfs traversal at traversal_order.txt.
- * ./air -d JFK; SFO - Does Dijkstras from JFK to SFO. Printed out optimal route in command line.
+ * ./air -d JFK SFO - Does Dijkstras from JFK to SFO. Printed out optimal route in command line.
  * ./air -b -ve JFK 40; Performs and vizualizes bfs from JFK. Vizualization adds a frame every edge, so very slow. Will add 40 frames. Can view in Maps/vizualize_by_edges.gif. A preloaded one located in the example folder, and also is below, is there if you want to see it without building one.
  * ./air -b -vl JFK; Performs and vizualizes bfs from JFK by layer (every bfs is done with that layer of depth).
- * ./air -d -v JFK SFO; Does Dijkstras from JFK to SFO and vizualizes it. Starts at red and ends at green with all intermediate airports in blue.
+ * ./air -d -v JFK SFO; Does Dijkstras from JFK to SFO and vizualizes it. Starts at red and ends at green with all intermediate airports in blue. Viewable map at Maps/dijikstras.png.
  * ./air; Allows user to input to airports in loop to continueally find best route with Dijikstras.
 ## Results
 All results are in Examples folder.
@@ -52,7 +52,7 @@ Chacalluta Airport, Arica -> El Alto International Airport, La Paz -> Viru Viru 
 Actual order of bfs traversal from Minot International Airport (MOT) in Minot, North Dakota, can be found at https://github-dev.cs.illinois.edu/cs225-fa20/shaffar3-smvarma2-mjamil3/blob/master/Examples/mot_bfs_order.txt
 
 ## Data Format
-The data is in a .dat file and is separated by commas. There is an airports.dat that contains airport data with the following fields in order. The fields are strings unless stated otherwise(Like latitude, longitude, altitude):
+For this project, the data was taken from https://openflights.org/data.html, and is the flight and route as of June 2014. The raw files can be found in the data folder of the repository. The data is in a .dat file and is separated by commas. There is an airports.dat that contains airport data with the following fields in order. The fields are strings unless stated otherwise(Like latitude, longitude, altitude):
 
 ```
 Airport ID    Unique OpenFlights identifier for this airport.
